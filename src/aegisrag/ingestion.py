@@ -1,5 +1,6 @@
 from pathlib import Path
-from src.aegisrag.document import Document
+from aegisrag.document import Document
+from aegisrag.markdown import parse_heading
 
 class MarkdownLoader:
 
@@ -26,8 +27,14 @@ class MarkdownLoader:
     def _extract_title(self, content : str, file_path : Path) -> str | None:
         for line in content.splitlines():
             line = line.strip()
+            result = parse_heading(line)
 
-            if line.startswith("#"):
-                return line[2:].strip()
-            
+            if result is not None:
+                level, title = result
+                return title
+
+        
         return file_path.stem
+
+# content = "Just some plain text.\nNo headings here."
+# print(MarkdownLoader().load_file(Path("data/documents/test_deep_heading.md")))
