@@ -1,13 +1,5 @@
-from dataclasses import dataclass
-from aegisrag.document import Document
+from aegisrag.document import Document, EmbeddedDocument
 from sentence_transformers import SentenceTransformer
-
-
-@dataclass
-class EmbeddedDocument:
-    document: Document
-    vector : list[float]
-
 
 class Embedder:
 
